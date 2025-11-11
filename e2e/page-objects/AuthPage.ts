@@ -10,8 +10,9 @@ export class AuthPage {
   // Clerk Sign In Modal Selectors
   private signInButton = 'button:has-text("Sign in")';
   private signUpButton = 'button:has-text("Sign up")';
-  private emailInput = 'input[name="identifier"]';
-  private passwordInput = 'input[name="password"]';
+  // Try multiple common email input selectors (Clerk can render different inputs)
+  private emailInput = 'input[name="identifier"], input[type="email"], input[name="email"]';
+  private passwordInput = 'input[name="password"], input[type="password"]';
   private continueButton = 'button:has-text("Continue")';
   private submitButton = 'button[type="submit"]';
   private forgotPasswordLink = 'a:has-text("Forgot password")';
@@ -40,7 +41,54 @@ export class AuthPage {
    */
   async openSignUp() {
     await this.page.click(this.signUpButton);
-    await this.page.waitForSelector(this.emailInput, { state: 'visible' });
+
+    // Wait for the signup input to appear. Clerk may render a modal directly,
+    // inside a web component, or inside an iframe. Try several strategies.
+    const timeout = 10000;
+    try {
+      // Wait for common direct input selectors first
+      await this.page.waitForSelector(this.emailInput, { state: 'visible', timeout: 3000 });
+      return;
+    } catch (err) {
+      // fallthrough to iframe/web component handling
+    }
+
+    // Try waiting for a known dialog or clerk modal wrapper
+    try {
+      await this.page.waitForSelector('clerk-modal, clerk-sign-up, [data-testid="clerk-modal"], dialog', { state: 'visible', timeout: 3000 });
+    } catch (err) {
+      // ignore - may not exist
+    }
+
+    // If an iframe is injected, search inside frames for an email input
+    const start = Date.now();
+    while (Date.now() - start < timeout) {
+      // re-check direct input inside main frame
+      const foundMain = await this.page.$(this.emailInput);
+      if (foundMain) {
+        try {
+          await foundMain.waitForElementState('visible', { timeout: 1000 });
+          return;
+        } catch {}
+      }
+
+      // check frames
+      for (const frame of this.page.frames()) {
+        try {
+          const emailInFrame = await frame.$('input[type="email"], input[name="email"], input[name="identifier"]');
+          if (emailInFrame) {
+            await emailInFrame.waitForElementState('visible', { timeout: 1000 });
+            return;
+          }
+        } catch {}
+      }
+
+      await this.page.waitForTimeout(250);
+    }
+
+    // If we reach here, nothing appeared — capture a screenshot for debugging and throw
+    await this.page.screenshot({ path: 'test-results/e2e-debug-signup-no-input.png', fullPage: true }).catch(() => {});
+    throw new Error('Signup input did not appear after clicking Sign up');
   }
 
   /**
