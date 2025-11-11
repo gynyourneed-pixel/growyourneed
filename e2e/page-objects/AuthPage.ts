@@ -1,4 +1,4 @@
-import { Page, expect } from '@playwright/test';
+import { Page, expect, Locator } from '@playwright/test';
 
 /**
  * Page Object Model for Authentication flows
@@ -33,7 +33,75 @@ export class AuthPage {
    */
   async openSignIn() {
     await this.page.click(this.signInButton);
-    await this.page.waitForSelector(this.emailInput, { state: 'visible' });
+    await this.ensureEmailAuthVisible();
+  }
+
+  /**
+   * Ensure the email-based auth UI is visible (handles social-first UIs and iframes)
+   */
+  private async ensureEmailAuthVisible() {
+    const emailMethodSelectors = [
+      this.emailInput,
+      'button:has-text("Sign in with email")',
+      'button:has-text("Continue with email")',
+      'a:has-text("Use email")',
+      'button:has-text("Email")',
+    ];
+
+    const timeout = 10000;
+    const start = Date.now();
+    while (Date.now() - start < timeout) {
+      // check main frame
+      for (const sel of emailMethodSelectors) {
+        const loc = this.page.locator(sel);
+        if (await loc.count() > 0) {
+          try {
+            await loc.first().waitFor({ state: 'visible', timeout: 500 });
+            return;
+          } catch {}
+        }
+      }
+
+      // check subframes
+      for (const frame of this.page.frames()) {
+        for (const sel of emailMethodSelectors) {
+          try {
+            const fl = frame.locator(sel as any);
+            if (await fl.count() > 0) {
+              await fl.first().waitFor({ state: 'visible', timeout: 500 });
+              return;
+            }
+          } catch {}
+        }
+      }
+
+      await this.page.waitForTimeout(250);
+    }
+    // nothing found - continue (tests will fail later with useful screenshot)
+  }
+
+  /**
+   * Find an input locator either in main frame or inside any iframe.
+   */
+  private async findInput(selector: string): Promise<Locator | null> {
+    const main = this.page.locator(selector);
+    if (await main.count() > 0) {
+      try {
+        await main.first().waitFor({ state: 'visible', timeout: 1000 });
+        return main.first();
+      } catch {}
+    }
+
+    for (const frame of this.page.frames()) {
+      try {
+        const fl = frame.locator(selector as any);
+        if (await fl.count() > 0) {
+          await fl.first().waitFor({ state: 'visible', timeout: 1000 });
+          return fl.first() as unknown as Locator;
+        }
+      } catch {}
+    }
+    return null;
   }
 
   /**
@@ -95,14 +163,20 @@ export class AuthPage {
    * Fill email/username in authentication form
    */
   async fillEmail(email: string) {
-    await this.page.fill(this.emailInput, email);
+    // Try to fill email in main frame first; if not found, try frames
+    const input = await this.findInput(this.emailInput);
+    if (!input) throw new Error('Email input not found');
+    await input.fill(email);
   }
 
   /**
    * Fill password in authentication form
    */
   async fillPassword(password: string) {
-    await this.page.fill(this.passwordInput, password);
+    // Try to fill password in main frame first; if not found, try frames
+    const input = await this.findInput(this.passwordInput);
+    if (!input) throw new Error('Password input not found');
+    await input.fill(password);
   }
 
   /**
@@ -128,6 +202,7 @@ export class AuthPage {
    */
   async login(email: string, password: string) {
     await this.openSignIn();
+    await this.ensureEmailAuthVisible();
     await this.fillEmail(email);
     await this.clickContinue();
     await this.fillPassword(password);
