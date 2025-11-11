@@ -100,14 +100,46 @@ Open **http://localhost:3040**
 - **Build**: Vite 6.4.1
 - **Styling**: Tailwind CSS 3.4.18
 - **Auth**: Clerk
+- **Database**: Supabase PostgreSQL
+- **Testing**: Playwright E2E (80+ tests)
 - **Package Manager**: pnpm
+
+---
+
+## 🧪 Testing
+
+Run comprehensive E2E tests for authentication flows:
+
+```bash
+# Run all tests
+pnpm test:e2e
+
+# Interactive UI mode (recommended)
+pnpm test:e2e:ui
+
+# View test report
+pnpm test:report
+```
+
+**Test Coverage**:
+- ✅ Login (20+ tests)
+- ✅ Signup (15+ tests)
+- ✅ Logout (12+ tests)
+- ✅ Registration (18+ tests)
+- ✅ Password Reset (15+ tests)
+
+📖 See [E2E_TESTING_GUIDE.md](docs/E2E_TESTING_GUIDE.md) for details
 
 ---
 
 ## 📚 Documentation
 
+- [E2E_TESTING_GUIDE.md](docs/E2E_TESTING_GUIDE.md) - Comprehensive testing guide
+- [E2E_TESTING_QUICKSTART.md](docs/E2E_TESTING_QUICKSTART.md) - Quick reference
 - [CLERK_SETUP.md](docs/CLERK_SETUP.md) - Authentication setup
 - [CLERK_WEBHOOK_SETUP.md](docs/CLERK_WEBHOOK_SETUP.md) - Webhook config
+- [SUPABASE_SETUP.md](docs/SUPABASE_SETUP.md) - Database setup
+- [TEST_ACCOUNTS_SETUP.md](docs/TEST_ACCOUNTS_SETUP.md) - Test accounts
 - [app-launcher.md](docs/app-launcher.md) - All applications
 - Dashboard specs in `docs/` folder
 
