@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Owner Dashboard</title>
+    <link rel="stylesheet" href="/src/app/global.css" />
+    <!-- Tailwind CSS is configured via tailwind.config.js and processed by Vite -->
+            // Light Theme Colors
+            'gyn-bg-primary-light': '#e3e8f0',
+            'gyn-bg-secondary-light': '#ffffff',
+            'gyn-bg-tertiary-light': '#e9eaff',
+            'gyn-text-primary-light': '#4a4a4a',
+            'gyn-text-secondary-light': '#1d2a78',
+            'gyn-border-primary-light': '#e9eaff',
+            'gyn-border-secondary-light': '#1d2a78',
+            'gyn-accent-light': '#f5a623',
+            'gyn-sidebar-light': '#1d2a78',
+            'gyn-sidebar-text-light': '#ffffff',
+            'gyn-sidebar-interactive-light': '#3041c7',
+            'gyn-bg-error-light': '#fee2e2',
+            'gyn-border-error-light': '#ef4444',
+            'gyn-text-error-light': '#991b1b',
+            'gyn-bg-warning-light': '#fde8c5',
+            'gyn-border-warning-light': '#f5a623',
+            'gyn-text-warning-light': '#92400e',
+            'gyn-bg-stat-green-light': '#dcfce7',
+            'gyn-bg-stat-purple-light': '#f3e8ff',
+            'gyn-bg-stat-tan-light': '#fde8c5',
+            'gyn-text-positive-light': '#166534',
+            'gyn-text-negative-light': '#991b1b',
+
+            // Dark Theme Colors - Modern Refresh
+            'gyn-bg-primary-dark': '#0f172a',    // slate-900
+            'gyn-bg-secondary-dark': '#1e293b',  // slate-800
+            'gyn-bg-tertiary-dark': '#334152',   // slate-700
+            'gyn-text-primary-dark': '#cbd5e1',   // slate-300
+            'gyn-text-secondary-dark': '#f1f5f9',  // slate-100
+            'gyn-border-primary-dark': '#334152',   // slate-700
+            'gyn-border-secondary-dark': '#475569',  // slate-600
+            'gyn-accent-dark': '#f5a623',        // amber-500 (Kept)
+            'gyn-sidebar-dark': '#0f172a',      // slate-900
+            'gyn-sidebar-text-dark': '#f1f5f9',    // slate-100
+            'gyn-sidebar-interactive-dark': '#1e293b', // slate-800
+            'gyn-bg-error-dark': '#7f1d1d',      // red-900
+            'gyn-border-error-dark': '#ef4444',   // red-500
+            'gyn-text-error-dark': '#fecaca',     // red-200
+            'gyn-bg-warning-dark': '#7c2d12',    // orange-900
+            'gyn-border-warning-dark': '#f97316', // orange-500
+            'gyn-text-warning-dark': '#fed7aa',   // orange-200
+            'gyn-bg-stat-green-dark': '#064e3b',    // green-900
+            'gyn-bg-stat-purple-dark': '#581c87',   // purple-900
+            'gyn-bg-stat-tan-dark': '#7c2d12',     // orange-900
+            'gyn-text-positive-dark': '#4ade80',     // green-400
+            'gyn-text-negative-dark': '#f87171',     // red-400
+
+            // Raw colors (can be used if needed, but theming should use light/dark variants)
+            'gyn-tan': '#fde8c5',
+            'gyn-blue-dark': '#1d2a78',
+            
+            // Standard Tailwind Colors (adding back for utility classes)
+            'blue': {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            },
+            'gray': {
+              50: '#f9fafb',
+              100: '#f3f4f6',
+              200: '#e5e7eb',
+              300: '#d1d5db',
+              400: '#9ca3af',
+              500: '#6b7280',
+              600: '#4b5563',
+              700: '#374151',
+              800: '#1f2937',
+              850: '#1a202e',
+              900: '#111827',
+            },
+            'white': '#ffffff',
+            'black': '#000000',
+          },
+          extend: {
+            backgroundImage: {
+              'aurora-gradient': 'radial-gradient(ellipse at 75% 15%, #6366f1 0%, #0f172a 50%, #d946ef 100%)',
+            },
+            keyframes: {
+              aurora: {
+                '0%': { backgroundPosition: '0% 50%' },
+                '50%': { backgroundPosition: '100% 50%' },
+                '100%': { backgroundPosition: '0% 50%' },
+              },
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              scaleIn: {
+                '0%': { opacity: '0', transform: 'scale(0.95)' },
+                '100%': { opacity: '1', transform: 'scale(1)' },
+              },
+              scaleOut: {
+                '0%': { opacity: '1', transform: 'scale(1)' },
+                '100%': { opacity: '0', transform: 'scale(0.95)' },
+              },
+              pulseGlow: {
+                '0%, 100%': { transform: 'scale(1)', boxShadow: '0 0 15px 5px rgba(245, 166, 35, 0.5)' },
+                '50%': { transform: 'scale(1.05)', boxShadow: '0 0 25px 10px rgba(245, 166, 35, 0.7)' },
+              },
+              'click-pulse': {
+                '0%, 100%': { transform: 'scale(1)' },
+                '50%': { transform: 'scale(1.08)' },
+              }
+            },
+            animation: {
+              aurora: 'aurora 15s ease infinite',
+              fadeInUp: 'fadeInUp 0.5s ease-out forwards',
+              scaleIn: 'scaleIn 0.3s ease-out forwards',
+              scaleOut: 'scaleOut 0.3s ease-out forwards',
+              pulseGlow: 'pulseGlow 2s infinite ease-in-out',
+              'click-pulse': 'click-pulse 300ms ease-in-out',
+            },
+          },
+        },
+        plugins: [
+          function({ addUtilities, theme }) {
+            addUtilities({
+              '.text-glow': {
+                textShadow: `
+                  0 0 5px ${theme('colors.gyn-accent-light')},
+                  0 0 10px ${theme('colors.gyn-accent-light')}
+                `,
+              },
+              '.dark .text-glow': {
+                textShadow: `
+                  0 0 5px ${theme('colors.gyn-accent-dark')},
+                  0 0 10px ${theme('colors.gyn-accent-dark')}
+                `,
+              },
+              '.no-scrollbar::-webkit-scrollbar': {
+                'display': 'none'
+              },
+              '.no-scrollbar': {
+                '-ms-overflow-style': 'none',
+                'scrollbar-width': 'none'
+              }
+            })
+          }
+        ]
+      };
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "recharts": "https://aistudiocdn.com/recharts@^3.3.0",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0"
+  }
+}
+</script>
+</head>
+  <body class="antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+</body>
+</html>

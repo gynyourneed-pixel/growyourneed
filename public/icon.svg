@@ -1,0 +1,61 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 3D Realistic Growth/Plant Icon with depth and shading -->
+  <defs>
+    <linearGradient id="leaf-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#16a34a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#15803d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="stem-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#86efac;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4ade80;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="pot-gradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#f97316;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#ea580c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c2410c;stop-opacity:1" />
+    </radialGradient>
+    <filter id="shadow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+      <feOffset dx="1" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Shadow base -->
+  <ellipse cx="16" cy="29" rx="10" ry="2" fill="rgba(0,0,0,0.15)"/>
+  
+  <!-- Pot with 3D effect -->
+  <path d="M 10 22 L 12 28 L 20 28 L 22 22 Z" fill="url(#pot-gradient)" filter="url(#shadow)"/>
+  <path d="M 10 22 L 12 28 L 20 28 L 22 22 Z" fill="rgba(255,255,255,0.1)" stroke="rgba(0,0,0,0.2)" stroke-width="0.5"/>
+  <ellipse cx="16" cy="22" rx="6" ry="2" fill="#fb923c"/>
+  <ellipse cx="16" cy="22" rx="5" ry="1.5" fill="rgba(255,255,255,0.3)"/>
+  
+  <!-- Main stem with 3D depth -->
+  <path d="M 16 22 Q 15 17, 14 12 Q 13 7, 14 4" stroke="url(#stem-gradient)" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#shadow)"/>
+  <path d="M 16 22 Q 15 17, 14 12 Q 13 7, 14 4" stroke="rgba(255,255,255,0.3)" stroke-width="0.5" fill="none" stroke-linecap="round"/>
+  
+  <!-- Left leaf with 3D curvature -->
+  <path d="M 14 12 Q 8 11, 6 9 Q 7 8, 10 9 Q 12 10, 14 12" fill="url(#leaf-gradient)" filter="url(#shadow)"/>
+  <path d="M 14 12 Q 8 11, 6 9 Q 7 8, 10 9 Q 12 10, 14 12" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
+  <path d="M 14 12 Q 10 10.5, 8 9.5" stroke="rgba(255,255,255,0.5)" stroke-width="0.3"/>
+  
+  <!-- Right leaf with 3D curvature -->
+  <path d="M 14 8 Q 20 7, 22 5 Q 21 4, 18 5 Q 16 6, 14 8" fill="url(#leaf-gradient)" filter="url(#shadow)"/>
+  <path d="M 14 8 Q 20 7, 22 5 Q 21 4, 18 5 Q 16 6, 14 8" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
+  <path d="M 14 8 Q 18 6.5, 20 5.5" stroke="rgba(255,255,255,0.5)" stroke-width="0.3"/>
+  
+  <!-- Top leaf/sprout with highlight -->
+  <path d="M 14 4 Q 13 2, 14 1 Q 15 2, 16 2 Q 17 1, 18 1 Q 17 2, 16 4 Q 15 3, 14 4" fill="url(#leaf-gradient)" filter="url(#shadow)"/>
+  <path d="M 14 4 Q 13 2, 14 1 Q 15 2, 16 2" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="0.4"/>
+  
+  <!-- Shine/highlight effects -->
+  <ellipse cx="18" cy="24" rx="2" ry="1" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="15" cy="6" r="1" fill="rgba(255,255,255,0.4)"/>
+</svg>

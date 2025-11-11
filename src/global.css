@@ -1,0 +1,65 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+
+:root {
+  /* Raw Color Palette (for reference or non-tailwind css) */
+  --gyn-blue-dark: 29 42 120;
+  --gyn-blue-medium: 48 65 199;
+  --gyn-tan: 253 232 197;
+  --gyn-accent: 245 166 35;
+}
+
+html {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(227 232 240); /* Light theme default */
+}
+.dark ::-webkit-scrollbar-track {
+    background: rgb(17 24 39); /* Dark override */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(48 65 199);
+    border-radius: 10px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-color: rgb(227 232 240); /* Light theme default */
+}
+.dark ::-webkit-scrollbar-thumb {
+     border-color: rgb(17 24 39); /* Dark override */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(29 42 120);
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+
+/* Custom Text Selection Styles */
+::selection {
+    background-color: rgb(245 166 35);
+    color: rgb(29 42 120);
+}
+
+::-moz-selection {
+    background-color: rgb(245 166 35);
+    color: rgb(29 42 120);
+}

@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gyn-blue-dark: 29 42 120;
+  --gyn-blue-medium: 48 65 199;
+  --gyn-blue-light: 233 234 255;
+  --gyn-orange: 245 166 35;
+  --gyn-tan: 253 232 197;
+  --gyn-frame-bg: 227 232 240;
+  --gyn-frame-bg-hover: 203 213 225;
+  --gyn-white: 255 255 255;
+  --gyn-black: 0 0 0;
+  --gyn-grey: 74 74 74;
+  --gyn-slate-100: 241 245 249;
+  --gyn-red-light: 254 226 226;
+  --gyn-red-medium: 239 68 68;
+  --gyn-red-dark: 153 27 27;
+  --gyn-yellow-dark: 146 64 14;
+  --gyn-green-light: 220 252 231;
+  --gyn-green-dark: 22 101 52;
+  --gyn-purple-light: 243 232 255;
+  --gyn-purple-dark: 107 33 168;
+}
+
+html {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(var(--gyn-frame-bg));
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--gyn-blue-medium));
+    border-radius: 10px;
+    border: 3px solid rgb(var(--gyn-frame-bg));
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--gyn-blue-dark));
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+
+/* Custom Text Selection Styles */
+::selection {
+    background-color: rgb(var(--gyn-orange));
+    color: rgb(var(--gyn-blue-dark));
+}
+
+::-moz-selection {
+    background-color: rgb(var(--gyn-orange));
+    color: rgb(var(--gyn-blue-dark));
+}
